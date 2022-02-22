@@ -8,6 +8,10 @@ let artist = document.querySelector('.player_action_song_artist');
 let titleSong = document.querySelector('.player_action_song_title');
 let blockImg = document.querySelector('.player_img');
 let bcg_image = document.querySelector('.bcg_image');
+let currentTime = document.querySelector('.currentTime');
+let durationTime = document.querySelector('.durationTime');
+const seekSlider = document.getElementById('progress_line');
+
 const songsObj = {
     0: {
         src: './assets/audio/beyonce.mp3',
@@ -22,15 +26,16 @@ const songsObj = {
         img: './assets/img/dontstartnow.png'
     }
 }
-
-audio.src = songsObj[0].src;
-artist.textContent = songsObj[0].artist;
-titleSong.textContent = songsObj[0].titleSong;
-blockImg.src = songsObj[0].img;
-bcg_image.src = songsObj[0].img;
+window.onload = function() {
+    audio.src = songsObj[0].src;
+    artist.textContent = songsObj[0].artist;
+    titleSong.textContent = songsObj[0].titleSong;
+    blockImg.src = songsObj[0].img;
+    bcg_image.src = songsObj[0].img;
+};
 
 function playAudio() {
-    audio.currentTime = 0;
+    audio.currentTime = seekSlider.value;
     (!isPlay) ? audio.play() : audio.pause();
 }
 
@@ -46,8 +51,10 @@ playBtn.addEventListener('click', () => {
     toggleBtn();
     isPlay = !isPlay;
     playAudio();
+    
 })
 
+// next and prev btn
 function nextSong() {
     if (playNum <= 0){
         playNum = Object.keys(songsObj).length - 1;
@@ -74,6 +81,34 @@ function prevSong() {
 nextBtn.addEventListener('click', nextSong);
 prevBtn.addEventListener('click', prevSong);
 
+//zoom image
 function zoomBlockImgToggle() {
     blockImg.classList.contains('player_img') ? blockImg.classList.toggle('player_img_zoom') : blockImg.classList.toggle('player_img');
 }
+
+//get duration
+const calculateTime = (secs) => {
+    const minutes = Math.floor(secs / 60);
+    const seconds = Math.floor(secs % 60);
+    const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    return `${minutes}:${returnedSeconds}`;
+}
+
+const displayDuration = () => {
+    durationTime.textContent = calculateTime(audio.duration);
+}
+
+if (audio.readyState > 0) {
+    displayDuration();
+} else {
+    audio.addEventListener('loadedmetadata', () => {
+        displayDuration();
+    });
+}
+
+// move range and currentTime
+audio.addEventListener('timeupdate', () => {
+    seekSlider.value =  Math.floor(audio.currentTime);
+    currentTime.textContent = calculateTime(seekSlider.value);
+    seekSlider.setAttribute("max", (audio.duration));
+});

@@ -14,7 +14,7 @@
             <div class="main_player_img"><img src="" alt="artist" class="player_img"></div>
             <div class="player_action_box">
                 <div class="player_action">
-                    <div id="iconSong"></div>
+                    <div id="iconSong" class="play"></div>
                     <div class="player_action_song">
                         <div class="player_action_song_artist"></div>
                         <div class="player_action_song_title"></div>
@@ -24,7 +24,13 @@
                         <img src="./assets/svg/rewind.svg" alt="backward" class="player_action_backward" id="prevBtn">
                     </div>
                 </div>
-                <audio src="" muted id="audio"></audio>
+
+                <div class="audio_box">
+                    <div class="durationTime">0:00</div>
+                    <audio src="" muted id="audio" preload=”metadata”></audio>
+                    <input type="range" id="progress_line" min="0" max="200" step="0.1" value="0">
+                    <div class="currentTime">0:00</div>
+                </div>
             </div>
         </div>
     </div>

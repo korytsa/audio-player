@@ -19,7 +19,6 @@
     left: 0; right: 0; 
     top: 0; bottom: 0; 
     z-index: -1; 
-    /* background-image: url(./assets/img/lemonade.png); */
     background-position: center -180px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -68,7 +67,7 @@
     justify-content: space-around;
     flex-direction: column;
     width: 100%;
-    height: 20vh;
+    height: 22vh;
     border-radius: 0 0 20px 20px  ;
     background-image: linear-gradient(90deg, rgb(100, 98, 98), rgb(180, 180, 180));
 }
@@ -77,6 +76,7 @@
     align-items: center;
     justify-content: space-around;
     width: 100%;
+    margin-top: 6px;
 }
 .play{
     width: 50px;
@@ -100,20 +100,18 @@
     width: 30px;
     height: 30x;
     transition: 0.2s;
-
     cursor: pointer;
+    margin-top: 5px;
 }
 .player_action_backward{
     width: 30px;
     height: 30x;
     cursor: pointer;
     transition: 0.2s;
+    margin-top: 5px;
 }
-.player_action_backward:hover, .player_action_forward:hover, .player_action_play:hover{
+.player_action_backward:hover, .player_action_forward:hover, .play:hover, .pause:hover{
     transform: scale(0.95);
-}
-.player_action_song{
-    
 }
 .player_action_song_artist{
     color: rgb(193, 255, 6);
@@ -123,4 +121,43 @@
 .player_action_song_title{
     color: white;
     font-size: 17px;
+}
+.audio_box{
+    display: flexbox;
+    margin-bottom: 20px;
+}
+.currentTime{
+    color: white;
+    font-weight: lighter;
+    font-size: 15px;
+}
+.durationTime{
+    display: flex;
+    font-weight: lighter;
+    color: rgb(193, 255, 6);
+    font-size: 15px;
+    flex-direction: row-reverse;
+}
+#progress_line{
+    width: 230px;
+}
+input[type=range]{
+    appearance: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    border-radius: 20px;
+    height: 9px;
+    background-color: black;
+    -webkit-appearance: none;
+    margin-top: -3px;
+    margin-bottom: -3px;
+}
+input[type=range]::-webkit-slider-thumb {
+    background-color: rgb(193, 255, 6);
+    border-radius: 20px;
+    cursor: pointer;
+    width:10px;
+    height: 12px;
+    -webkit-appearance: none;
+    margin-top: -2px;
 }
